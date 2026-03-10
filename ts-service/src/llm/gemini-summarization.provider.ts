@@ -35,7 +35,7 @@ interface ParsedSummaryResult {
 export class GeminiSummarizationProvider implements SummarizationProvider {
   private readonly logger = new Logger(GeminiSummarizationProvider.name);
   private readonly apiKey: string | undefined;
-  private readonly apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+  private readonly apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
   
   // Configuration
   private readonly REQUEST_TIMEOUT_MS = 30000;
@@ -286,6 +286,8 @@ Ensure your JSON is valid and complete.`;
       concerns,
       summary,
       recommendedDecision,
+      provider: 'gemini',
+      modelVersion: 'gemini-2.5-flash',
     };
   }
 }

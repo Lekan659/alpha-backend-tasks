@@ -19,6 +19,8 @@ export class FakeSummarizationProvider implements SummarizationProvider {
       concerns: docCount > 1 ? ['Needs deeper system design examples'] : ['Limited context provided'],
       summary: `Fake summary for candidate ${input.candidateId} using ${docCount} document(s).`,
       recommendedDecision: docCount > 0 ? 'hold' : 'reject',
+      provider: 'fake',
+      modelVersion: 'fake-v1',
     };
   }
 }
