@@ -8,8 +8,7 @@ export class InitialStarterEntities1710000000000 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'varchar',
-            length: '64',
+            type: 'uuid',
             isPrimary: true,
           },
           {
@@ -34,14 +33,12 @@ export class InitialStarterEntities1710000000000 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'varchar',
-            length: '64',
+            type: 'uuid',
             isPrimary: true,
           },
           {
             name: 'workspace_id',
-            type: 'varchar',
-            length: '64',
+            type: 'uuid',
             isNullable: false,
           },
           {

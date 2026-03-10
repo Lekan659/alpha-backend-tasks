@@ -10,7 +10,7 @@ import { SampleCandidate } from './sample-candidate.entity';
 
 @Entity({ name: 'sample_workspaces' })
 export class SampleWorkspace {
-  @PrimaryColumn({ type: 'varchar', length: 64 })
+  @PrimaryColumn({ type: 'uuid' })
   id!: string;
 
   @Column({ type: 'varchar', length: 120 })

@@ -41,3 +41,5 @@ tmp/
 # Local storage
 data/
 postgres-data/
+
+.zip
