@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ report.title }}</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f5f7fb;
+            --panel: #ffffff;
+            --border: #d7deea;
+            --text: #172033;
+            --muted: #5f6b85;
+            --accent: #1f5eff;
+            --accent-soft: #eaf0ff;
+            --danger-soft: #fff0f0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 32px;
+            font-family: Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .report {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(23, 32, 51, 0.08);
+        }
+
+        .header {
+            padding: 32px;
+            background: linear-gradient(135deg, #152347, #1f5eff);
+            color: white;
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+            line-height: 1.2;
+        }
+
+        .header p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.86);
+        }
+
+        .content {
+            padding: 32px;
+            display: grid;
+            gap: 24px;
+        }
+
+        .section {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            background: white;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 20px;
+            color: var(--text);
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .meta {
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--accent-soft);
+        }
+
+        .meta .label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .meta .value {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li + li {
+            margin-top: 10px;
+        }
+
+        .recommendation {
+            background: var(--accent-soft);
+            border-left: 4px solid var(--accent);
+        }
+
+        .risks {
+            background: var(--danger-soft);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        th {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+        }
+
+        .empty-state {
+            padding: 18px;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            color: var(--muted);
+            background: #fafbfd;
+        }
+
+        .footer {
+            padding: 20px 32px 32px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .report {
+                border: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article class="report">
+        <header class="header">
+            <h1>{{ report.title }}</h1>
+            <p>Generated on {{ report.generated_at }}</p>
+        </header>
+
+        <main class="content">
+            <section class="section">
+                <h2>Company Information</h2>
+                <div class="company-grid">
+                    <div class="meta">
+                        <span class="label">Company</span>
+                        <span class="value">{{ report.company_name }}</span>
+                    </div>
+                    <div class="meta">
+                        <span class="label">Ticker</span>
+                        <span class="value">{{ report.ticker }}</span>
+                    </div>
+                    <div class="meta">
+                        <span class="label">Sector</span>
+                        <span class="value">{{ report.sector }}</span>
+                    </div>
+                    <div class="meta">
+                        <span class="label">Report Date</span>
+                        <span class="value">{{ report.report_date }}</span>
+                    </div>
+                    <div class="meta">
+                        <span class="label">Analyst</span>
+                        <span class="value">{{ report.analyst_name or 'Not provided' }}</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Executive Summary</h2>
+                <p>{{ report.summary }}</p>
+            </section>
+
+            <section class="section">
+                <h2>Key Points</h2>
+                <ul>
+                    {% for point in report.key_points %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="section risks">
+                <h2>Risks</h2>
+                <ul>
+                    {% for risk in report.risks %}
+                    <li>{{ risk }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="section recommendation">
+                <h2>Recommendation</h2>
+                <p>{{ report.recommendation }}</p>
+            </section>
+
+            <section class="section">
+                <h2>Metrics</h2>
+                {% if report.metrics %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                            <th>Period</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for metric in report.metrics %}
+                        <tr>
+                            <td>{{ metric.name }}</td>
+                            <td>{{ metric.display_value }}</td>
+                            <td>{{ metric.period or '—' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="empty-state">No metrics were provided for this briefing.</div>
+                {% endif %}
+            </section>
+        </main>
+
+        <footer class="footer">
+            Internal briefing report generated at {{ report.generated_at }}.
+        </footer>
+    </article>
+</body>
+</html>
