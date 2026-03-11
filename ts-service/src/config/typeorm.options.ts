@@ -7,7 +7,7 @@ import { SampleCandidate } from '../entities/sample-candidate.entity';
 import { SampleWorkspace } from '../entities/sample-workspace.entity';
 
 export const defaultDatabaseUrl =
-  'postgres://assessment_user:assessment_pass@localhost:5433/assessment_db';
+  'postgres://assessment_user:assessment_pass@localhost:5432/assessment_db';
 
 export const getTypeOrmOptions = (
   databaseUrl: string,

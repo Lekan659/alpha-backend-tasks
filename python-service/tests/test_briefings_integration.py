@@ -10,7 +10,7 @@ from app.db.session import get_db
 from app.main import app
 
 
-TEST_DATABASE_URL = "postgresql+psycopg://assessment_user:assessment_pass@localhost:5433/assessment_db"
+TEST_DATABASE_URL = "postgresql+psycopg://assessment_user:assessment_pass@localhost:5432/assessment_db"
 
 
 @pytest.fixture(scope="module")
